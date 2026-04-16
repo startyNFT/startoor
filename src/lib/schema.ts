@@ -258,6 +258,8 @@ export const clientEntries = pgTable(
     dueDate: text("due_date"),
     status: text("status").notNull().default("active"),
     notes: text("notes"),
+    valueCents: integer("value_cents").default(0),
+    lastTouchedAt: timestamp("last_touched_at", { mode: "date" }).defaultNow(),
     sortOrder: integer("sort_order").default(0),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
@@ -265,9 +267,42 @@ export const clientEntries = pgTable(
   (t) => [index("client_entries_owner_idx").on(t.ownerEmail)],
 );
 
+export const clientTouchpoints = pgTable(
+  "client_touchpoints",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    clientId: text("client_id")
+      .notNull()
+      .references(() => clientEntries.id, { onDelete: "cascade" }),
+    ownerEmail: text("owner_email").notNull(),
+    note: text("note").notNull(),
+    kind: text("kind").notNull().default("note"),
+    occurredAt: timestamp("occurred_at", { mode: "date" }).defaultNow().notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => [
+    index("client_touchpoints_client_idx").on(t.clientId),
+    index("client_touchpoints_owner_idx").on(t.ownerEmail),
+  ],
+);
+
+export const clientEntriesRelations = relations(clientEntries, ({ many }) => ({
+  touchpoints: many(clientTouchpoints),
+}));
+
+export const clientTouchpointsRelations = relations(clientTouchpoints, ({ one }) => ({
+  client: one(clientEntries, {
+    fields: [clientTouchpoints.clientId],
+    references: [clientEntries.id],
+  }),
+}));
+
 export type BioPage = typeof bioPages.$inferSelect;
 export type BioLink = typeof bioLinks.$inferSelect;
 export type ClientEntry = typeof clientEntries.$inferSelect;
+export type ClientTouchpoint = typeof clientTouchpoints.$inferSelect;
 
 export const waitlistSignups = pgTable(
   "waitlist_signups",

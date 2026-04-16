@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { ClientTrackerApp } from "./tracker-app";
 import { SignInForm } from "./signin-form";
 import { SeedButton } from "./seed-button";
-import { getClients, getCurrentEmail } from "./actions";
+import {
+  getAllTouchpointsForOwner,
+  getClients,
+  getCurrentEmail,
+} from "./actions";
 
 export const metadata: Metadata = {
   title: "Client Tracker · Try it",
@@ -45,7 +49,10 @@ export default async function ClientTrackerPage() {
     );
   }
 
-  const clients = await getClients();
+  const [clients, touchpoints] = await Promise.all([
+    getClients(),
+    getAllTouchpointsForOwner(),
+  ]);
   return (
     <>
       {clients.length === 0 && (
@@ -58,7 +65,11 @@ export default async function ClientTrackerPage() {
           </div>
         </div>
       )}
-      <ClientTrackerApp initialClients={clients} email={email} />
+      <ClientTrackerApp
+        initialClients={clients}
+        initialTouchpoints={touchpoints}
+        email={email}
+      />
     </>
   );
 }
