@@ -304,6 +304,82 @@ export type BioLink = typeof bioLinks.$inferSelect;
 export type ClientEntry = typeof clientEntries.$inferSelect;
 export type ClientTouchpoint = typeof clientTouchpoints.$inferSelect;
 
+export const portfolioPages = pgTable(
+  "portfolio_pages",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    slug: text("slug").notNull().unique(),
+    ownerEmail: text("owner_email").notNull(),
+    editToken: text("edit_token").notNull(),
+    template: text("template").notNull().default("grid"),
+    displayName: text("display_name").notNull(),
+    role: text("role"),
+    tagline: text("tagline"),
+    about: text("about"),
+    avatarUrl: text("avatar_url"),
+    accentColor: text("accent_color"),
+    backgroundColor: text("background_color"),
+    location: text("location"),
+    contactEmail: text("contact_email"),
+    website: text("website"),
+    socials: jsonb("socials").$type<{
+      twitter?: string;
+      linkedin?: string;
+      github?: string;
+      dribbble?: string;
+      instagram?: string;
+    }>(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => [
+    uniqueIndex("portfolio_pages_slug_idx").on(t.slug),
+    index("portfolio_pages_owner_idx").on(t.ownerEmail),
+  ],
+);
+
+export const portfolioProjects = pgTable(
+  "portfolio_projects",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    pageId: text("page_id")
+      .notNull()
+      .references(() => portfolioPages.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    role: text("role"),
+    client: text("client"),
+    year: text("year"),
+    coverImage: text("cover_image"),
+    mediaUrls: jsonb("media_urls").$type<string[]>().default([]),
+    problem: text("problem"),
+    approach: text("approach"),
+    outcome: text("outcome"),
+    metrics: jsonb("metrics").$type<{ label: string; value: string }[]>().default([]),
+    links: jsonb("links").$type<{ label: string; url: string }[]>().default([]),
+    sortOrder: integer("sort_order").default(0),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => [index("portfolio_projects_page_idx").on(t.pageId)],
+);
+
+export const portfolioPagesRelations = relations(portfolioPages, ({ many }) => ({
+  projects: many(portfolioProjects),
+}));
+
+export const portfolioProjectsRelations = relations(portfolioProjects, ({ one }) => ({
+  page: one(portfolioPages, {
+    fields: [portfolioProjects.pageId],
+    references: [portfolioPages.id],
+  }),
+}));
+
+export type PortfolioPage = typeof portfolioPages.$inferSelect;
+export type PortfolioProject = typeof portfolioProjects.$inferSelect;
+
 export const waitlistSignups = pgTable(
   "waitlist_signups",
   {

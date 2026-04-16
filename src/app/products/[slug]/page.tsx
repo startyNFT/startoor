@@ -17,6 +17,7 @@ const DEMO_URLS: Record<string, string> = {
   "client-tracker": "/tools/client-tracker",
   "seo-roi-calculator": "/tools/seo-roi-calculator",
   "hook-library": "/tools/hook-library",
+  "portfolio-builder": "/tools/portfolio-builder",
 };
 
 export async function generateMetadata({

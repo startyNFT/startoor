@@ -22,7 +22,8 @@ export default async function CheckoutPage({
   if (!data) notFound();
   const { product, maker, category } = data;
 
-  const fees = Math.round(product.priceCents * 0.029 + 30);
+  const isFree = product.priceCents === 0;
+  const fees = isFree ? 0 : Math.round(product.priceCents * 0.029 + 30);
   const total = product.priceCents + fees;
 
   return (

@@ -317,7 +317,7 @@ async function seedProducts(
           "A hand-curated, tagged library of 700 hooks that outperform the bland 'n tips for…' format. Sortable by tone, platform, emotion, and angle. Use as a swipe file, export to your own tool, or paste into your content workflow.",
         longDescription:
           "Built by a writer who grew a LinkedIn following to 40k in 18 months. Each hook is tagged by what makes it work — specificity, contrarian framing, tension, named stakes. Export the entire thing to Notion, Airtable, or CSV. No subscription, no AI — just the accumulated shape of what works.",
-        priceCents: 2900,
+        priceCents: 0,
         makerId: mks["sora-tanaka"].id,
         categoryId: cats["content-tools"].id,
         coverImage: `https://picsum.photos/seed/hook-library-cover/1600/1000`,
