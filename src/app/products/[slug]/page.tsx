@@ -18,6 +18,7 @@ const DEMO_URLS: Record<string, string> = {
   "seo-roi-calculator": "/tools/seo-roi-calculator",
   "hook-library": "/tools/hook-library",
   "portfolio-builder": "/tools/portfolio-builder",
+  "content-calendar-kit": "/tools/content-calendar",
 };
 
 export async function generateMetadata({
