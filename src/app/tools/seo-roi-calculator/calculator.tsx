@@ -840,7 +840,7 @@ function ReportHeader() {
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-clay">
           The forecast
         </span>
-        <h2 className="mt-2 font-display text-3xl leading-tight tracking-tight text-ink">
+        <h2 className="mt-2 font-display text-2xl leading-tight tracking-tight text-ink md:text-[28px]">
           Twelve months, in numbers you can defend.
         </h2>
       </div>
@@ -868,13 +868,13 @@ function Tile({
           ? "text-stone"
           : "text-ink";
   return (
-    <div className="relative overflow-hidden rounded-sm border border-hairline bg-warm-white p-4 md:p-5">
+    <div className="relative flex min-w-0 flex-col overflow-hidden rounded-sm border border-hairline bg-warm-white p-4 md:p-5">
       <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-clay">
         {label}
       </span>
       <p
         className={cn(
-          "mt-3 font-display text-3xl leading-[0.95] tracking-tight tabular-nums md:text-4xl",
+          "mt-3 font-display text-[22px] leading-[1.05] tracking-tight tabular-nums md:text-[26px]",
           toneClass,
         )}
       >
