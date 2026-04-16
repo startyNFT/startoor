@@ -11,6 +11,12 @@ import { formatPrice, formatDate } from "@/lib/formatters";
 import { StarRating } from "@/components/star-rating";
 import { ProductCard } from "@/components/product-card";
 
+const DEMO_URLS: Record<string, string> = {
+  "invoice-maker": "/tools/invoice-maker",
+  "link-in-bio-maker": "/tools/link-in-bio",
+  "client-tracker": "/tools/client-tracker",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -166,6 +172,23 @@ export default async function ProductPage({
                 <span className="transition-transform group-hover:translate-x-0.5">→</span>
               </Link>
             </div>
+
+            {DEMO_URLS[product.slug] && (
+              <Link
+                href={DEMO_URLS[product.slug]}
+                className="group mt-4 inline-flex items-center justify-between gap-3 border border-hairline bg-bone px-5 py-3 font-sans text-sm text-ink transition-colors hover:border-ink"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-clay animate-pulse" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
+                    Live demo
+                  </span>
+                  <span className="text-ink-soft">
+                    Try it before you buy →
+                  </span>
+                </span>
+              </Link>
+            )}
 
             <p className="mt-4 font-sans text-xs leading-relaxed text-stone">
               Instant download · Year of updates · Support from the maker ·{" "}

@@ -33,7 +33,7 @@ async function seedCategories() {
         slug: "content-tools",
         name: "Content Tools",
         description:
-          "Write, generate, and ship content without staring at a blank page.",
+          "Calendars, swipe files, and hook libraries for shipping without staring at a blank page.",
         icon: "pen",
         sortOrder: 2,
       },
@@ -41,7 +41,7 @@ async function seedCategories() {
         slug: "creator-tools",
         name: "Creator Tools",
         description:
-          "Portfolio pages, link hubs, and landing pages for people who make things.",
+          "Portfolio pages, link hubs, and landing page templates for people who make things.",
         icon: "spark",
         sortOrder: 3,
       },
@@ -64,7 +64,7 @@ async function seedCategories() {
         slug: "marketing",
         name: "Marketing",
         description:
-          "Ad copy, campaign tracking, and audience tools for indie marketing teams.",
+          "Ad swipe files, campaign dashboards, and audience tools for indie marketing teams.",
         icon: "megaphone",
         sortOrder: 6,
       },
@@ -81,10 +81,11 @@ async function seedMakers() {
       {
         slug: "mina-kwon",
         displayName: "Mina Kwon",
-        bio: "Former design systems lead turned indie builder. I ship tools I wish existed. Currently obsessed with streaming AI UX.",
+        bio: "Former design systems lead turned indie builder. I ship tools I wish existed. Currently obsessed with streaming UI.",
         website: "https://minakwon.studio",
         twitter: "@minakwon",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=mina&backgroundColor=e8c77f",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=mina&backgroundColor=e8c77f",
         location: "Toronto, Canada",
         verified: true,
       },
@@ -94,17 +95,19 @@ async function seedMakers() {
         bio: "Backend engineer who got tired of rebuilding dashboards every quarter. I make production-ready starters so you don't have to.",
         website: "https://diego.build",
         twitter: "@diegobuilds",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=diego&backgroundColor=9db89f",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=diego&backgroundColor=9db89f",
         location: "Medellín, Colombia",
         verified: true,
       },
       {
         slug: "sora-tanaka",
         displayName: "Sora Tanaka",
-        bio: "Writer-engineer. I build tools for words. Published two novels before switching to AI UX.",
+        bio: "Writer-engineer. I build tools for words. Published two novels before switching to product work.",
         website: "https://sora.jp",
         twitter: "@sorawrites",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=sora&backgroundColor=d47963",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=sora&backgroundColor=d47963",
         location: "Kyoto, Japan",
         verified: true,
       },
@@ -114,7 +117,8 @@ async function seedMakers() {
         bio: "Interface designer focused on creative tooling. Previously at Framer, now solo.",
         website: "https://robinchen.design",
         twitter: "@robinchen",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=robin&backgroundColor=3d6b53",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=robin&backgroundColor=3d6b53",
         location: "Taipei, Taiwan",
       },
       {
@@ -123,17 +127,19 @@ async function seedMakers() {
         bio: "Freelancer since 2018. Everything I sell, I use on my own clients first. Invoice Maker was born out of frustration.",
         website: "https://luca.studio",
         twitter: "@lucabuilds",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=luca&backgroundColor=c85a3f",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=luca&backgroundColor=c85a3f",
         location: "Milan, Italy",
         verified: true,
       },
       {
         slug: "naima-haidari",
         displayName: "Naima Haidari",
-        bio: "Growth marketer for 8 years, builder for 2. I build the spreadsheets I wish marketers stopped passing around.",
+        bio: "Growth marketer for 8 years, builder for 2. I turn the spreadsheets marketers keep passing around into real products.",
         website: "https://naima.hq",
         twitter: "@naimaghq",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=naima&backgroundColor=b8b3a7",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=naima&backgroundColor=b8b3a7",
         location: "Berlin, Germany",
       },
       {
@@ -142,7 +148,8 @@ async function seedMakers() {
         bio: "Full-stack engineer, ex-Razorpay. I ship boilerplates that don't need to be rewritten on day 30.",
         website: "https://priya.dev",
         twitter: "@priyadesh",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=priya&backgroundColor=1f3a2f&backgroundType=solid",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=priya&backgroundColor=1f3a2f",
         location: "Bangalore, India",
         verified: true,
       },
@@ -152,7 +159,8 @@ async function seedMakers() {
         bio: "Designer/developer. I think link-in-bios should be beautiful. Running Kit Labs out of a cabin in Finland.",
         website: "https://emmi.design",
         twitter: "@emmisaarinen",
-        avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=emmi&backgroundColor=e8c77f",
+        avatarUrl:
+          "https://api.dicebear.com/9.x/notionists/svg?seed=emmi&backgroundColor=e8c77f",
         location: "Helsinki, Finland",
       },
     ])
@@ -169,45 +177,49 @@ function previewImages(seed: string): string[] {
   ];
 }
 
-async function seedProducts(cats: Record<string, { id: string }>, mks: Record<string, { id: string }>) {
+async function seedProducts(
+  cats: Record<string, { id: string }>,
+  mks: Record<string, { id: string }>,
+) {
   const rows = await db
     .insert(products)
     .values([
       // Starter Kits
       {
-        slug: "ai-chatbot-kit",
-        title: "AI Chatbot Kit",
-        tagline: "Production-ready chatbot for your product. Stream, cite, remember.",
+        slug: "chatbot-ui-kit",
+        title: "Chatbot UI Kit",
+        tagline: "A production chat interface you drop into any stack. Bring your own model.",
         description:
-          "A batteries-included chatbot you can drop into any Next.js project. Streaming responses, persistent conversations, source citation, rate limiting, and dark mode out of the box.",
+          "Beautiful, accessible chat UI — streaming, citations, composer with attachments, history pane, typing indicators. No vendor lock-in: point it at OpenAI, Anthropic, your own backend, or a local model. We make the interface. You bring the model.",
         longDescription:
-          "Built after shipping three chatbots at Series B startups. This is the distilled, opinionated version — the things that always needed to be built from scratch. Works with OpenAI, Anthropic, or any OpenAI-compatible endpoint. Includes a working admin dashboard for reviewing conversations and tuning prompts.",
+          "Built after shipping chat surfaces at three Series B startups. This is the distilled, opinionated interface — keyboard-first, accessibility-complete, theme-tokenized. Works as a drop-in component, a full-page /chat route, or an embedded widget. Includes a thin admin dashboard (optional) for reviewing conversations from your own DB.",
         priceCents: 6900,
         makerId: mks["mina-kwon"].id,
         categoryId: cats["starter-kits"].id,
-        coverImage: `https://picsum.photos/seed/ai-chatbot-kit-cover/1600/1000`,
-        previewImages: previewImages("ai-chatbot-kit"),
+        coverImage: `https://picsum.photos/seed/chatbot-ui-kit-cover/1600/1000`,
+        previewImages: previewImages("chatbot-ui-kit"),
         features: [
-          "Streaming responses with token-by-token rendering",
-          "Conversation persistence with pgvector embeddings",
-          "Source citation with inline footnotes",
-          "Rate limiting per-user, per-IP, per-endpoint",
-          "Admin dashboard for prompt tuning",
-          "Works with OpenAI, Anthropic, or any OAI-compatible API",
+          "Drop-in React component + full page route + embeddable widget",
+          "Streaming-ready rendering (ReadableStream or SSE)",
+          "Message threading, citations, composer attachments",
+          "Keyboard-first navigation (⌘K for new chat, arrow keys to scroll threads)",
+          "Dark mode, token-themable",
+          "Works with any provider — no API calls ship in the code",
+          "Admin dashboard for reviewing your own conversation logs (optional)",
         ],
         demoOutputs: [
           {
-            title: "Sample conversation",
+            title: "What ships in the box",
             content:
-              "User: What's the return policy?\n\nAssistant: Our return policy is 30 days from delivery for unused items. Refunds are processed within 5 business days. [[source: policies/returns.md]]",
+              "· <Chat /> React component\n· /chat full-page route\n· <ChatWidget /> embeddable\n· ThreadList, MessageBubble, Composer subcomponents\n· Streaming renderer (SSE + ReadableStream)\n· Admin console for reviewing conversations\n· Dark/light themes, 8 color presets",
           },
           {
-            title: "Citation rendering",
+            title: "What does not ship",
             content:
-              "The population of Tokyo is approximately 13.9 million [[source: demographics-2025.md]]. This represents a slight decline from the 2020 peak of 14.1 million.",
+              "· No API calls to any provider\n· No API keys to manage\n· No vendor SDKs baked in\n· You wire it to whatever backend you want — OpenAI, Anthropic, Ollama, your own LLM, or a retrieval system",
           },
         ],
-        tags: ["chatbot", "ai", "nextjs", "streaming", "typescript"],
+        tags: ["chatbot", "ui-kit", "react", "nextjs", "typescript"],
         status: "published",
         featured: true,
       },
@@ -262,74 +274,69 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
 
       // Content Tools
       {
-        slug: "ai-content-generator",
-        title: "AI Content Generator",
-        tagline: "Blog posts, tweets, and emails in your voice.",
+        slug: "content-calendar-kit",
+        title: "Content Calendar Kit",
+        tagline: "A 90-day editorial calendar and 400 post ideas, organized.",
         description:
-          "Train it on your existing writing. Get drafts back that sound like you — not like ChatGPT default. Works across blog posts, tweet threads, LinkedIn posts, and email newsletters.",
+          "A Notion-compatible content calendar system, 400 evergreen post ideas across 12 niches, and a weekly rhythm template that I used to publish consistently for 18 months without burning out.",
         longDescription:
-          "The default ChatGPT voice is everywhere. This tool takes 10–20 samples of your existing writing and generates drafts in your style. Stop editing out em-dashes. Start shipping content.",
+          "Not AI-generated filler. Each of the 400 ideas is tagged by niche, format, and effort. The calendar includes a batching protocol, a repurposing workflow, and a tracking dashboard you can run in Notion or Google Sheets — your pick. Comes with a week-one walkthrough so you start publishing the day you buy it.",
         priceCents: 3900,
         makerId: mks["mina-kwon"].id,
         categoryId: cats["content-tools"].id,
-        coverImage: `https://picsum.photos/seed/ai-content-generator-cover/1600/1000`,
-        previewImages: previewImages("ai-content-generator"),
+        coverImage: `https://picsum.photos/seed/content-calendar-kit-cover/1600/1000`,
+        previewImages: previewImages("content-calendar-kit"),
         features: [
-          "Voice training from 10–20 samples",
-          "Blog post outlines + full drafts",
-          "Tweet thread generator with hook variants",
-          "LinkedIn post generator with tone controls",
-          "Email subject + body with A/B variants",
+          "400 post ideas across 12 niches, tagged by format + effort",
+          "90-day editorial calendar template (Notion + Sheets versions)",
+          "Batching + repurposing workflow",
+          "Tracking dashboard (views, saves, conversions)",
+          "Week-one walkthrough video",
         ],
         demoOutputs: [
           {
-            title: "Sample tweet (tone: sharp/direct)",
+            title: "Sample idea cluster (niche: 'founder writing')",
             content:
-              "Every \"strategy deck\" I've seen shipped this year had three things in common:\n\n1. A quote from someone who didn't write it\n2. A chart that doesn't survive a simple question\n3. No kill criteria\n\nLead with what would make you stop.",
+              "· 'The bad call that saved us $200k' → long-form essay\n· 'Three signs your pricing is too low' → short thread\n· 'An email I almost didn't send' → lightweight post\n· 'The interview question I now lead with' → newsletter piece\n· 'How we killed our biggest feature' → case-study essay",
           },
           {
-            title: "Sample blog hook (tone: warm/editorial)",
+            title: "What's in the calendar",
             content:
-              "The best piece of marketing advice I got this year came from a barista. She didn't call it marketing. She said: \"If you can't explain what's on the menu in one breath, it's too long.\" Three months later, I rewrote our whole product page around that rule.",
-          },
-          {
-            title: "Sample email subject variants",
-            content:
-              "A. We redesigned onboarding (the results)\nB. Our activation rate doubled — here's what we changed\nC. The 3 clicks we removed from onboarding\nD. How we got users to \"aha\" 40% faster",
+              "Week 1: One long-form piece + two short posts + one repurpose\nWeek 2: Two medium pieces + one thread + one reshare\nWeek 3: One deep dive + four shorts\nWeek 4: Rest/review/plan — on purpose",
           },
         ],
-        tags: ["content", "ai", "writing", "marketing"],
+        tags: ["content", "calendar", "notion", "sheets", "writing"],
         status: "published",
         featured: true,
       },
       {
-        slug: "viral-post-builder",
-        title: "Viral Post Builder",
-        tagline: "Hook-first posts for X and LinkedIn.",
+        slug: "hook-library",
+        title: "Hook Library",
+        tagline: "700 opening lines that actually land. Searchable, swipable, yours.",
         description:
-          "Every post starts with a hook. This tool generates 20 hook variants, scores them against virality signals, and helps you rewrite the body to match. No shortcuts — just better iteration.",
+          "A hand-curated, tagged library of 700 hooks that outperform the bland 'n tips for…' format. Sortable by tone, platform, emotion, and angle. Use as a swipe file, export to your own tool, or paste into your content workflow.",
         longDescription:
-          "Built by a solo writer who grew a LinkedIn following to 40k in 18 months. The secret isn't AI writing the post for you. It's running 20 versions of the hook and picking the one that reads like you on your best day.",
+          "Built by a writer who grew a LinkedIn following to 40k in 18 months. Each hook is tagged by what makes it work — specificity, contrarian framing, tension, named stakes. Export the entire thing to Notion, Airtable, or CSV. No subscription, no AI — just the accumulated shape of what works.",
         priceCents: 2900,
         makerId: mks["sora-tanaka"].id,
         categoryId: cats["content-tools"].id,
-        coverImage: `https://picsum.photos/seed/viral-post-builder-cover/1600/1000`,
-        previewImages: previewImages("viral-post-builder"),
+        coverImage: `https://picsum.photos/seed/hook-library-cover/1600/1000`,
+        previewImages: previewImages("hook-library"),
         features: [
-          "20 hook variants per topic",
-          "Virality signal scoring (contrarian, specific, tension)",
-          "Body rewriter that matches your hook's tone",
-          "Platform-specific formatting (X, LinkedIn, Threads)",
-          "Personal archive of what worked for you",
+          "700 hooks across 4 platforms (X, LinkedIn, Threads, newsletter)",
+          "Tagged by tone, emotion, angle, and what-makes-it-work",
+          "Searchable UI included + exportable as CSV / Notion / Airtable",
+          "Author's notes on structural patterns",
+          "Monthly additions for the first year",
         ],
         demoOutputs: [
           {
-            title: "Hook variants for topic 'raising a small round'",
+            title: "Sample hooks (angle: 'counter-consensus')",
             content:
-              "1. I raised $800k in 11 days. Here's what I wish I knew at day 0.\n2. 47 investor meetings. 3 yeses. The pattern was unexpected.\n3. The pitch deck I actually raised on was 7 slides. (The one I started with was 24.)\n4. Most founders optimize the wrong thing when raising a small round.\n5. 'No' usually means 'not yet'. Here's how to tell the difference.",
+              "· Most founders optimize the wrong thing when raising a small round.\n· Every 'strategy deck' I've seen shipped this year had three things in common.\n· The pitch deck I actually raised on was 7 slides. The one I started with was 24.\n· 'No' usually means 'not yet'. Here's how to tell the difference.\n· We shipped the bad version on purpose. Here's why it worked.",
           },
         ],
-        tags: ["content", "social", "x", "linkedin", "writing"],
+        tags: ["content", "social", "swipe-file", "writing"],
         status: "published",
       },
       {
@@ -337,7 +344,7 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         title: "Newsletter Starter",
         tagline: "Substack without the lock-in. Own your list, own the look.",
         description:
-          "A beautiful, self-hosted newsletter system. Paid subscriptions via Stripe. Custom domain from day one. AI-generated post summaries as intro hooks. Import your existing list with one CSV.",
+          "A beautiful, self-hosted newsletter system. Paid subscriptions via Stripe. Custom domain from day one. Import your existing list with one CSV. Your email, your audience, your design.",
         longDescription:
           "Substack is great until you have 10k subscribers and realize you don't own the relationship. This is the alternative — your list, your domain, your design. Works with any email provider, looks gorgeous by default.",
         priceCents: 5900,
@@ -347,10 +354,10 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         previewImages: previewImages("newsletter-starter"),
         features: [
           "Custom domain + Stripe subscriptions",
-          "AI-generated post summaries as intro hooks",
           "CSV import from Substack/Mailchimp/Beehiiv",
           "Public archive with SEO-ready posts",
           "Member-only comments",
+          "Editorial templates for send-out emails",
         ],
         tags: ["newsletter", "substack-alt", "email", "writing"],
         status: "published",
@@ -358,43 +365,34 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
 
       // Creator Tools
       {
-        slug: "landing-page-generator",
-        title: "Landing Page Generator",
-        tagline: "Describe your product. Get a full landing page.",
+        slug: "landing-page-templates",
+        title: "Landing Page Templates",
+        tagline: "Ten production-ready Next.js landing page templates. Ship in an afternoon.",
         description:
-          "Feed it a paragraph about your product. Get back a fully designed landing page with hero, features, testimonials, and pricing — with copy that doesn't sound like AI wrote it.",
+          "Ten hand-designed, fully-coded landing page templates — not wireframes, shippable code. Next.js + Tailwind + TypeScript. Copy is swap-via-single-file. Dark mode built in. SEO metadata and OG image ready.",
         longDescription:
-          "The secret is the prompt structure, not the model. I spent six months tuning the prompts so the output actually reads like real landing pages. Each generation includes five variations of the hero section so you pick your favorite and ship.",
+          "Every template was born from a real project I designed for a client. You get the source, the assets, the component library, and a Figma file if you want to redesign. No subscription. Updates for a year. Use on as many projects as you want.",
         priceCents: 4900,
         makerId: mks["sora-tanaka"].id,
         categoryId: cats["creator-tools"].id,
-        coverImage: `https://picsum.photos/seed/landing-page-generator-cover/1600/1000`,
-        previewImages: previewImages("landing-page-generator"),
+        coverImage: `https://picsum.photos/seed/landing-page-templates-cover/1600/1000`,
+        previewImages: previewImages("landing-page-templates"),
         features: [
-          "5 hero variants per generation",
-          "Feature grid with iconography",
-          "Testimonial layout options",
-          "Pricing table variants (simple, tiered, usage)",
-          "Export as Next.js components or static HTML",
+          "10 distinct templates (SaaS, indie app, agency, portfolio, marketplace, newsletter, book, course, event, open-source)",
+          "Next.js + Tailwind + TypeScript",
+          "Copy swap via single `content.ts` file",
+          "Dark mode, mobile-first, SEO metadata",
+          "Figma source included",
+          "Updates for 12 months",
         ],
         demoOutputs: [
           {
-            title: "Hero variant 1",
+            title: "Template examples (by category)",
             content:
-              "The calendar for people who do deep work.\n\nOne-line agenda. Block scheduling by energy level. No notifications. Built for makers, writers, and the people who schedule against their own rhythms — not their boss's.",
-          },
-          {
-            title: "Hero variant 2",
-            content:
-              "Your calendar doesn't know you.\n\nIt doesn't know when you write best, when you code best, or when you hit the wall at 3pm. This one does. Energy-aware scheduling, finally.",
-          },
-          {
-            title: "Hero variant 3",
-            content:
-              "Meetings at 10am. Writing at 3pm. Never again.\n\nAn opinionated calendar that blocks your deep work before anyone else can. For people who ship things, not people who schedule things.",
+              "· SaaS Pro — 5 variants · tiered pricing block · trust bar · testimonial carousel\n· Indie App — 4 variants · fair-pricing block · single testimonial · app store badges\n· Agency — 3 variants · case-study layout · team grid · project gallery\n· Marketplace — 4 variants · category grid · featured shelf · maker spotlight",
           },
         ],
-        tags: ["landing-page", "marketing", "copywriting", "generator"],
+        tags: ["landing-page", "templates", "nextjs", "tailwind"],
         status: "published",
         featured: true,
       },
@@ -403,16 +401,16 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         title: "Link-in-Bio Maker",
         tagline: "Link pages that don't look like everyone else's.",
         description:
-          "Ten hand-designed link-page templates. Custom domain support. Analytics that actually tell you something. Free tier for creators starting out.",
+          "Four hand-designed link-page templates — Classic, Night, Editorial, Sunset. Custom domain support. Per-link analytics. Your page. Your look.",
         longDescription:
-          "Linktree looks like Linktree. That's a problem when you're trying to build a brand. I designed 10 distinctive templates, all customizable, all fast. Your link-in-bio should be a billboard, not a placeholder.",
+          "Linktree looks like Linktree. That's a problem when you're trying to build a brand. These four templates are distinctive, fast, and fully yours. Your link-in-bio should be a billboard, not a placeholder.",
         priceCents: 1900,
         makerId: mks["emmi-saarinen"].id,
         categoryId: cats["creator-tools"].id,
         coverImage: `https://picsum.photos/seed/link-in-bio-maker-cover/1600/1000`,
         previewImages: previewImages("link-in-bio-maker"),
         features: [
-          "10 hand-designed templates",
+          "4 hand-designed templates (Classic / Night / Editorial / Sunset)",
           "Custom domain + SSL",
           "Per-link click analytics",
           "Drag-to-reorder editor",
@@ -451,7 +449,7 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         title: "Invoice Maker",
         tagline: "Freelance invoicing that doesn't suck.",
         description:
-          "Send an invoice in 30 seconds. Recurring invoices for retainer clients. Auto-reminders on overdue. Tax-ready exports for your accountant. Works with Stripe, Wise, and bank transfer.",
+          "Send a beautifully typeset invoice in 30 seconds. Line items, tax, discounts, notes — all in one screen with a live preview. Export as PDF and send. Zero subscription. Zero accounts.",
         longDescription:
           "I built this for me after watching friends spend $240/year on QuickBooks just to send 6 invoices. This is the 6-invoice version. Fast, clean, and it doesn't try to sell you bookkeeping you don't need.",
         priceCents: 2900,
@@ -460,24 +458,25 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         coverImage: `https://picsum.photos/seed/invoice-maker-cover/1600/1000`,
         previewImages: previewImages("invoice-maker"),
         features: [
-          "30-second invoice creation",
-          "Recurring invoices for retainer clients",
-          "Auto-reminders at 7, 14, and 30 days",
-          "Tax-ready CSV export",
-          "Works with Stripe, Wise, and bank transfer",
-          "Custom branding on every invoice",
+          "Live preview as you type",
+          "Line items with quantity, unit, rate",
+          "Tax and discount handling",
+          "Auto-calculated totals, tabular figures",
+          "One-click PDF download",
+          "Works offline, data never leaves your browser",
         ],
         tags: ["invoicing", "freelance", "productivity"],
         status: "published",
+        featured: true,
       },
       {
         slug: "client-tracker",
         title: "Client Tracker",
         tagline: "A CRM that fits on a single screen.",
         description:
-          "Every client, every project, every next-action — one view. Built for freelancers and solo consultants who got burned out on HubSpot's 14 dashboards.",
+          "Every client, every project, every next action — one screen. Built for freelancers and solo consultants who got burned out on HubSpot's 14 dashboards.",
         longDescription:
-          "I went from spreadsheet to Airtable to Notion to HubSpot and back. They were all either too little or too much. This is the shape in the middle. One table, three columns, fast keyboard navigation, and calendar sync.",
+          "I went from spreadsheet to Airtable to Notion to HubSpot and back. They were all either too little or too much. This is the shape in the middle. One table, clean columns, keyboard-first, and your data stays yours.",
         priceCents: 3900,
         makerId: mks["emmi-saarinen"].id,
         categoryId: cats["productivity"].id,
@@ -485,10 +484,11 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         previewImages: previewImages("client-tracker"),
         features: [
           "Single-screen CRM view",
-          "Keyboard-first navigation",
-          "Calendar sync for next-actions",
-          "CSV import from any tool",
-          "Lightweight tasks per client",
+          "Keyboard-first navigation (⌘K, tab, enter)",
+          "Inline editing — click a cell, type, done",
+          "Status pills with color tints",
+          "Next-action and due-date columns",
+          "Quick-add row via keyboard shortcut",
         ],
         tags: ["crm", "freelance", "productivity"],
         status: "published",
@@ -502,7 +502,7 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
         description:
           "Input traffic, conversion rate, LTV. Output honest-to-god ROI on your SEO investment. Bring it to your next marketing review with confidence.",
         longDescription:
-          "Built after watching too many marketers pitch SEO as \"free\" and then spend $80k/year on it. This is the calculator that tells you whether your content flywheel is actually compounding — or whether you're just paying for vanity traffic.",
+          "Built after watching too many marketers pitch SEO as 'free' and then spend $80k/year on it. This is the calculator that tells you whether your content flywheel is actually compounding — or whether you're just paying for vanity traffic.",
         priceCents: 1900,
         makerId: mks["naima-haidari"].id,
         categoryId: cats["developer-tools"].id,
@@ -544,38 +544,38 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
 
       // Marketing
       {
-        slug: "ad-copy-generator",
-        title: "Ad Copy Generator",
-        tagline: "Platform-specific ad variations, not generic slop.",
+        slug: "ad-copy-swipe-file",
+        title: "Ad Copy Swipe File",
+        tagline: "500 ads across Meta, Google, LinkedIn, TikTok — with the anatomy of each.",
         description:
-          "Generates 30 ad copy variants across Meta, Google, LinkedIn, and TikTok — each tuned to the platform's native voice and character limits. Built by a growth marketer who got tired of editing ChatGPT output.",
+          "A hand-curated collection of the most effective ads from 2024–2026, broken down by hook, structure, and performance signals. Built by a growth marketer who reverse-engineered hundreds of high-spending campaigns so you don't have to.",
         longDescription:
-          "Most 'ad copy AI' tools give you the same 5 variations across every platform. That's not how ads work. This tool knows that a LinkedIn ad shouldn't read like a TikTok one, and generates accordingly.",
+          "Not scraped. Not automated. Each ad is captured, annotated, and tagged — what angle the hook is using, what body structure, what makes it scroll-stopping. Browse by vertical (SaaS, DTC, B2B, local), by platform, or by sentiment. Export the whole library to your own swipe tool.",
         priceCents: 3500,
         makerId: mks["naima-haidari"].id,
         categoryId: cats["marketing"].id,
-        coverImage: `https://picsum.photos/seed/ad-copy-generator-cover/1600/1000`,
-        previewImages: previewImages("ad-copy-generator"),
+        coverImage: `https://picsum.photos/seed/ad-copy-swipe-file-cover/1600/1000`,
+        previewImages: previewImages("ad-copy-swipe-file"),
         features: [
-          "Platform-specific variants (Meta, Google, LinkedIn, TikTok)",
-          "Character limit enforcement per platform",
-          "A/B hypothesis generator for each variant",
-          "Brand voice training from 5 example ads",
-          "Export to CSV for your ads manager",
+          "500 ads across 4 platforms and 6 verticals",
+          "Each ad annotated — hook type, body structure, stop-signal",
+          "Searchable UI + exportable as CSV / Notion",
+          "Updated quarterly for 12 months",
+          "PDF field-guide on hook patterns included",
         ],
         demoOutputs: [
           {
-            title: "LinkedIn variant for 'AI expense tool'",
+            title: "Sample entry (LinkedIn, SaaS, B2B)",
             content:
-              "Finance teams are spending 11 hours per week chasing receipts. We built the tool that ends that. Integrates with your existing stack in under 30 minutes. 400+ CFOs have switched.",
+              "Finance teams are spending 11 hours per week chasing receipts.\nWe built the tool that ends that.\nIntegrates with your existing stack in under 30 minutes. 400+ CFOs have switched.\n\n→ Annotated: specificity in hook (11 hours, 400 CFOs); tension in body (chasing receipts); low-friction close (under 30 minutes)",
           },
           {
-            title: "TikTok variant (same product)",
+            title: "Sample entry (TikTok, same product)",
             content:
-              "POV: your CFO hasn't touched a receipt in 4 months. This is how. ↓ (seriously, show them this)",
+              "POV: your CFO hasn't touched a receipt in 4 months. This is how. ↓ (seriously, show them this)\n\n→ Annotated: native POV format; implied outcome; soft CTA with permission frame",
           },
         ],
-        tags: ["ads", "marketing", "copywriting", "ai"],
+        tags: ["ads", "marketing", "swipe-file", "copywriting"],
         status: "published",
       },
       {
@@ -610,9 +610,9 @@ async function seedProducts(cats: Record<string, { id: string }>, mks: Record<st
 
 async function seedReviews(productList: { id: string; slug: string }[]) {
   const reviewBank: Record<string, { name: string; rating: number; content: string }[]> = {
-    "ai-chatbot-kit": [
-      { name: "James Okafor", rating: 5, content: "Shipped to production in 3 hours. The streaming + citation combo is exactly what I wanted and hadn't figured out how to wire." },
-      { name: "Elena Ruiz", rating: 5, content: "The admin dashboard for tuning prompts is the feature I didn't know I needed. Worth the price on its own." },
+    "chatbot-ui-kit": [
+      { name: "James Okafor", rating: 5, content: "Wired it to our own LLM in 3 hours. The streaming + citation combo is exactly what I wanted and hadn't figured out how to build." },
+      { name: "Elena Ruiz", rating: 5, content: "The fact that it doesn't assume a provider is the killer feature. We swapped from OpenAI to Anthropic with no code change." },
       { name: "Marcus Thorne", rating: 4, content: "Rock solid. Docs could be more thorough but the code is clear enough to follow." },
     ],
     "saas-dashboard-starter": [
@@ -625,29 +625,30 @@ async function seedReviews(productList: { id: string; slug: string }[]) {
       { name: "Zainab Hasan", rating: 5, content: "Minimal in the best way. I cloned, configured env vars, and deployed in 25 minutes." },
       { name: "Hiro Nakamura", rating: 4, content: "Exactly what I needed. No fluff." },
     ],
-    "ai-content-generator": [
-      { name: "Isla McKenzie", rating: 5, content: "The voice training actually works. My readers can't tell which posts I wrote vs. drafted here." },
-      { name: "Ryan Booth", rating: 5, content: "I ship 3x more content now. Been subscribed for 4 months." },
-      { name: "Clara Jeong", rating: 4, content: "The blog outline feature alone is worth it." },
+    "content-calendar-kit": [
+      { name: "Isla McKenzie", rating: 5, content: "The batching workflow is the unlock. I publish 3x more content now and spend less time doing it." },
+      { name: "Ryan Booth", rating: 5, content: "400 ideas tagged the way Mina tags them is worth the price on its own." },
+      { name: "Clara Jeong", rating: 4, content: "The week-one walkthrough is a nice touch. Had me publishing on day two." },
     ],
-    "viral-post-builder": [
-      { name: "Tomás Ferreira", rating: 5, content: "Sora's hook methodology is the real product. The tool just makes it fast." },
-      { name: "Nadia Al-Fassi", rating: 4, content: "Works well for X. LinkedIn generation is hit or miss." },
+    "hook-library": [
+      { name: "Tomás Ferreira", rating: 5, content: "Sora's annotations on WHY each hook works are the real product. I've internalized the patterns." },
+      { name: "Nadia Al-Fassi", rating: 5, content: "Export to Notion. Bulk apply tags. My own reference library is finally useful." },
+      { name: "Priscilla Mendes", rating: 4, content: "700 hooks is borderline too many. But the search UI saves me." },
     ],
     "newsletter-starter": [
       { name: "Brendan Kim", rating: 5, content: "Migrated from Substack in a weekend. Own my list, own my brand. No regrets." },
-      { name: "Fatima Zerhouni", rating: 5, content: "The AI summary hook feature gets opens up 18% in my testing." },
+      { name: "Fatima Zerhouni", rating: 5, content: "The editorial send template is the prettiest email I've ever sent." },
       { name: "Olivia Weiss", rating: 4, content: "Custom domain support was a game changer." },
     ],
-    "landing-page-generator": [
-      { name: "Priscilla Mendes", rating: 5, content: "Five hero variants is the killer feature. I always ship the third one, but I need to see all five to know." },
-      { name: "Kenji Morrow", rating: 5, content: "The output doesn't sound like AI. That alone sets this apart." },
-      { name: "Anya Volkov", rating: 5, content: "Launched 4 pages this month. Conversion is higher than my hand-written versions." },
-      { name: "Mateo Silva", rating: 4, content: "Works best for B2B SaaS. Consumer products need a bit more tuning." },
+    "landing-page-templates": [
+      { name: "Priscilla Mendes", rating: 5, content: "The copy-swap file is brilliant. I shipped 3 client pages in a week." },
+      { name: "Kenji Morrow", rating: 5, content: "Not marketing mockups. Actually production code. Big difference." },
+      { name: "Anya Volkov", rating: 5, content: "Shipped 4 pages this month. Conversion is higher than my hand-written versions." },
+      { name: "Mateo Silva", rating: 4, content: "Works best for B2B SaaS. Indie app templates are strong too." },
     ],
     "link-in-bio-maker": [
       { name: "Ines García", rating: 5, content: "Finally a link-in-bio that looks like I designed it myself." },
-      { name: "Oscar Lindqvist", rating: 4, content: "The editorial template is stunning." },
+      { name: "Oscar Lindqvist", rating: 4, content: "The Editorial template is stunning." },
     ],
     "portfolio-builder": [
       { name: "Zoe Barrett", rating: 5, content: "Got three interviews from portfolios in a week. Worth every dollar." },
@@ -656,7 +657,7 @@ async function seedReviews(productList: { id: string; slug: string }[]) {
     ],
     "invoice-maker": [
       { name: "Tanner Blackwood", rating: 5, content: "I was paying $20/mo for software that did half of this. Switched and never looked back." },
-      { name: "Keiko Sato", rating: 5, content: "Recurring invoices alone saved me 2 hours a month." },
+      { name: "Keiko Sato", rating: 5, content: "The live preview as I type is the feature that sold me. Sending invoices is actually pleasant now." },
       { name: "Miguel Santos", rating: 4, content: "Clean, fast, does what it says." },
     ],
     "client-tracker": [
@@ -671,9 +672,9 @@ async function seedReviews(productList: { id: string; slug: string }[]) {
       { name: "Finn O'Donnell", rating: 5, content: "Moved off Postman. The keyboard palette is faster than anything I'd used." },
       { name: "Aasha Reddy", rating: 5, content: "Self-hosted in 4 minutes. Team's been on it for 2 months now." },
     ],
-    "ad-copy-generator": [
-      { name: "Hector Palma", rating: 5, content: "The platform-specific tuning is the real differentiator. Other tools give me the same copy for LinkedIn and TikTok — that's not how ads work." },
-      { name: "Sienna Beaumont", rating: 4, content: "Solid output. I still edit, but I'm editing less." },
+    "ad-copy-swipe-file": [
+      { name: "Hector Palma", rating: 5, content: "The annotations on WHY each ad works are the unlock. I've stopped writing from scratch." },
+      { name: "Sienna Beaumont", rating: 4, content: "Huge library, well-organized. Worth it for the TikTok section alone." },
     ],
     "campaign-dashboard": [
       { name: "Dominik Karadžić", rating: 5, content: "Running 5 channels. Went from 90 minutes of tab-surfing to one dashboard. Weekly auto-reports are gold." },

@@ -192,6 +192,83 @@ export const sellerApplications = pgTable("seller_applications", {
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
 });
 
+export const bioPages = pgTable(
+  "bio_pages",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    slug: text("slug").notNull().unique(),
+    ownerEmail: text("owner_email").notNull(),
+    editToken: text("edit_token").notNull(),
+    template: text("template").notNull().default("classic"),
+    displayName: text("display_name").notNull(),
+    headline: text("headline"),
+    bio: text("bio"),
+    avatarUrl: text("avatar_url"),
+    accentColor: text("accent_color"),
+    backgroundColor: text("background_color"),
+    location: text("location"),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => [
+    uniqueIndex("bio_pages_slug_idx").on(t.slug),
+    index("bio_pages_owner_idx").on(t.ownerEmail),
+  ],
+);
+
+export const bioLinks = pgTable(
+  "bio_links",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    pageId: text("page_id")
+      .notNull()
+      .references(() => bioPages.id, { onDelete: "cascade" }),
+    label: text("label").notNull(),
+    url: text("url").notNull(),
+    kind: text("kind").default("link"),
+    sortOrder: integer("sort_order").default(0),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => [index("bio_links_page_idx").on(t.pageId)],
+);
+
+export const bioPagesRelations = relations(bioPages, ({ many }) => ({
+  links: many(bioLinks),
+}));
+
+export const bioLinksRelations = relations(bioLinks, ({ one }) => ({
+  page: one(bioPages, { fields: [bioLinks.pageId], references: [bioPages.id] }),
+}));
+
+export const clientEntries = pgTable(
+  "client_entries",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    ownerEmail: text("owner_email").notNull(),
+    name: text("name").notNull(),
+    company: text("company"),
+    email: text("email"),
+    nextAction: text("next_action"),
+    dueDate: text("due_date"),
+    status: text("status").notNull().default("active"),
+    notes: text("notes"),
+    sortOrder: integer("sort_order").default(0),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => [index("client_entries_owner_idx").on(t.ownerEmail)],
+);
+
+export type BioPage = typeof bioPages.$inferSelect;
+export type BioLink = typeof bioLinks.$inferSelect;
+export type ClientEntry = typeof clientEntries.$inferSelect;
+
 export const waitlistSignups = pgTable(
   "waitlist_signups",
   {
