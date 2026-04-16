@@ -54,10 +54,13 @@ export function BioBuilder({
   );
 
   const onTemplateChange = (key: BioTemplateKey) => {
+    const outgoing = BIO_TEMPLATES.find((t) => t.key === template)!;
+    const incoming = BIO_TEMPLATES.find((t) => t.key === key)!;
     setTemplate(key);
-    const preset = BIO_TEMPLATES.find((t) => t.key === key)!;
-    if (!initial.accentColor) setAccent(preset.defaultAccent);
-    if (!initial.backgroundColor) setBackground(preset.defaultBg);
+    // Follow the new template's look unless the user has customized away
+    // from the outgoing template's defaults
+    if (accent === outgoing.defaultAccent) setAccent(incoming.defaultAccent);
+    if (background === outgoing.defaultBg) setBackground(incoming.defaultBg);
   };
 
   const previewData: BioPageData = {
