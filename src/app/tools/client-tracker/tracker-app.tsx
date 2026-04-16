@@ -21,8 +21,8 @@ type Client = {
   status: string;
   notes: string | null;
   valueCents: number | null;
-  lastTouchedAt: Date | string | null;
-  updatedAt: Date | string;
+  lastTouchedAt: string | null;
+  updatedAt: string;
 };
 
 type Touchpoint = {
@@ -30,7 +30,7 @@ type Touchpoint = {
   clientId: string;
   note: string;
   kind: string;
-  occurredAt: Date | string;
+  occurredAt: string;
 };
 
 const STATUSES = [
@@ -51,10 +51,11 @@ const KIND_STYLES: Record<string, { label: string; dot: string }> = {
   shipped: { label: "Shipped", dot: "#E8C77F" },
 };
 
-function daysBetween(a: Date | string | null, b: Date) {
+function daysBetween(a: string | null | undefined, b: Date) {
   if (!a) return Infinity;
-  const t = typeof a === "string" ? new Date(a).getTime() : a.getTime();
-  return Math.floor((b.getTime() - t) / (24 * 60 * 60 * 1000));
+  const parsed = new Date(a).getTime();
+  if (Number.isNaN(parsed)) return Infinity;
+  return Math.floor((b.getTime() - parsed) / (24 * 60 * 60 * 1000));
 }
 
 function parseDueDate(s: string | null): number | null {
@@ -940,13 +941,12 @@ function ExpandedPanel({
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!note.trim()) return;
-    const now = new Date();
     const optimistic: Touchpoint = {
       id: `temp-${Date.now()}`,
       clientId: client.id,
       note: note.trim(),
       kind,
-      occurredAt: now,
+      occurredAt: new Date().toISOString(),
     };
     onAddTouchpoint(client.id, optimistic);
     const saved = note;
@@ -1011,8 +1011,11 @@ function ExpandedPanel({
         <ol className="mt-8 space-y-5">
           {touchpoints.map((tp) => {
             const meta = KIND_STYLES[tp.kind] ?? KIND_STYLES.note;
-            const when = typeof tp.occurredAt === "string" ? new Date(tp.occurredAt) : tp.occurredAt;
-            const days = Math.max(0, Math.floor((Date.now() - when.getTime()) / (1000 * 60 * 60 * 24)));
+            const when = new Date(tp.occurredAt);
+            const whenValid = !Number.isNaN(when.getTime());
+            const days = whenValid
+              ? Math.max(0, Math.floor((Date.now() - when.getTime()) / (1000 * 60 * 60 * 24)))
+              : 0;
             const dateLabel =
               days === 0
                 ? "Today"
@@ -1144,8 +1147,8 @@ function NewClientRow({
       status: form.status,
       notes: null,
       valueCents,
-      lastTouchedAt: new Date(),
-      updatedAt: new Date(),
+      lastTouchedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
     onAdd(optimistic);
 

@@ -49,13 +49,44 @@ export default async function ClientTrackerPage() {
     );
   }
 
-  const [clients, touchpoints] = await Promise.all([
-    getClients(),
-    getAllTouchpointsForOwner(),
-  ]);
+  let clients: Awaited<ReturnType<typeof getClients>> = [];
+  let touchpoints: Awaited<ReturnType<typeof getAllTouchpointsForOwner>> = [];
+  try {
+    [clients, touchpoints] = await Promise.all([
+      getClients(),
+      getAllTouchpointsForOwner(),
+    ]);
+  } catch (err) {
+    console.error("Client tracker load failed:", err);
+  }
+
+  // Serialize dates to ISO strings at the server boundary so nothing
+  // downstream can trip on Date/string ambiguity in the RSC payload.
+  const serializedClients = clients.map((c) => ({
+    id: c.id,
+    name: c.name,
+    company: c.company,
+    email: c.email,
+    nextAction: c.nextAction,
+    dueDate: c.dueDate,
+    status: c.status,
+    notes: c.notes,
+    valueCents: c.valueCents ?? 0,
+    lastTouchedAt: c.lastTouchedAt ? new Date(c.lastTouchedAt).toISOString() : null,
+    updatedAt: new Date(c.updatedAt).toISOString(),
+  }));
+
+  const serializedTouchpoints = touchpoints.map((t) => ({
+    id: t.id,
+    clientId: t.clientId,
+    note: t.note,
+    kind: t.kind,
+    occurredAt: new Date(t.occurredAt).toISOString(),
+  }));
+
   return (
     <>
-      {clients.length === 0 && (
+      {serializedClients.length === 0 && (
         <div className="border-b border-hairline bg-bone">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-4 md:px-10">
             <p className="font-sans text-sm text-ink-soft">
@@ -66,8 +97,8 @@ export default async function ClientTrackerPage() {
         </div>
       )}
       <ClientTrackerApp
-        initialClients={clients}
-        initialTouchpoints={touchpoints}
+        initialClients={serializedClients}
+        initialTouchpoints={serializedTouchpoints}
         email={email}
       />
     </>
