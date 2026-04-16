@@ -19,6 +19,7 @@ const DEMO_URLS: Record<string, string> = {
   "hook-library": "/tools/hook-library",
   "portfolio-builder": "/tools/portfolio-builder",
   "content-calendar-kit": "/tools/content-calendar",
+  "ad-copy-swipe-file": "/tools/ad-copy-swipe-file",
 };
 
 export async function generateMetadata({
