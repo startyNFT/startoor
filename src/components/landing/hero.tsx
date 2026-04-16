@@ -9,24 +9,32 @@ export async function Hero() {
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-24 md:px-10 md:pt-28 md:pb-32">
         <div className="relative grid gap-16 md:grid-cols-[1.3fr_0.7fr] md:gap-10">
           <div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 animate-fade-up" style={{ animationDelay: "40ms" }}>
               <span className="block h-[1px] w-10 bg-ink" />
               <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-stone">
                 Est. 2026 · Curated weekly
               </span>
             </div>
-            <h1 className="mt-8 font-display text-[60px] leading-[0.92] tracking-[-0.02em] text-ink md:text-[88px] lg:text-[108px]">
-              <span className="block">A curated</span>
-              <span className="block">
+            <h1
+              className="mt-8 font-display text-[60px] leading-[0.92] tracking-[-0.02em] text-ink md:text-[88px] lg:text-[108px]"
+            >
+              <span className="block animate-fade-up" style={{ animationDelay: "120ms" }}>A curated</span>
+              <span className="block animate-fade-up" style={{ animationDelay: "220ms" }}>
                 marketplace <span className="italic text-forest">for</span>
               </span>
-              <span className="block">AI-built apps.</span>
+              <span className="block animate-fade-up" style={{ animationDelay: "320ms" }}>AI-built apps.</span>
             </h1>
-            <p className="mt-10 max-w-xl font-sans text-lg leading-relaxed text-ink-soft md:text-xl">
+            <p
+              className="mt-10 max-w-xl font-sans text-lg leading-relaxed text-ink-soft md:text-xl animate-fade-up"
+              style={{ animationDelay: "440ms" }}
+            >
               Hand-picked starter kits, templates, and tools built with AI — shipped
               by makers who use them every day. Buy once. Use forever.
             </p>
-            <div className="mt-12 flex flex-wrap gap-3">
+            <div
+              className="mt-12 flex flex-wrap gap-3 animate-fade-up"
+              style={{ animationDelay: "540ms" }}
+            >
               <Link
                 href="/browse"
                 className="group inline-flex items-center gap-3 rounded-full bg-ink px-7 py-3.5 font-sans text-sm text-bone transition-all hover:bg-forest"
@@ -43,7 +51,10 @@ export async function Hero() {
             </div>
           </div>
 
-          <div className="relative hidden flex-col justify-end md:flex">
+          <div
+            className="relative hidden flex-col justify-end md:flex animate-fade-up"
+            style={{ animationDelay: "640ms" }}
+          >
             <StatStack stats={stats} />
           </div>
         </div>
