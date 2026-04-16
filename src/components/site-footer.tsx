@@ -22,7 +22,6 @@ const SECTIONS = [
     heading: "Startoor",
     links: [
       { href: "/about", label: "About" },
-      { href: "/signin", label: "Sign in" },
       { href: "/account", label: "My orders" },
     ],
   },

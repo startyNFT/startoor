@@ -64,10 +64,10 @@ export function SiteNav() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="/signin"
+            href="/account"
             className="hidden font-sans text-sm text-ink-soft transition-colors hover:text-ink md:inline"
           >
-            Sign in
+            My orders
           </Link>
           <Link
             href="/sell/apply"
