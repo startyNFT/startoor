@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Startoor
 
-## Getting Started
+A curated marketplace for AI-built apps, templates, and tools.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4
+- Neon Postgres + Drizzle ORM
+- Auth.js v5 (Resend magic links)
+- Resend for transactional email
+- Motion for animations
+- Deployed on Vercel
+
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local  # fill in values
+npm run db:push             # push schema to Neon
+npm run db:seed             # populate catalog
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+DATABASE_URL=""
+AUTH_SECRET=""
+AUTH_URL="http://localhost:3000"
+RESEND_API_KEY=""
+RESEND_FROM_EMAIL="Startoor <onboarding@resend.dev>"
+ADMIN_PASSWORD=""
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Start local dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build |
+| `npm run lint` | ESLint |
+| `npm run db:generate` | Generate Drizzle migration |
+| `npm run db:push` | Push schema directly to DB |
+| `npm run db:seed` | Populate marketplace catalog |
+| `npm run db:studio` | Open Drizzle studio |
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Stripe checkout is mocked for demo purposes — orders persist, payments do not.
+- AI products in the catalog ship with pre-generated showcase output; the marketplace itself is fully functional.
