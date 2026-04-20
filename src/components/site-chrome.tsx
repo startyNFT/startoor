@@ -8,7 +8,8 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isPublicBio = pathname.startsWith("/bio/");
   const isPublicPortfolio = pathname.startsWith("/portfolio/");
-  if (isPublicBio || isPublicPortfolio) {
+  const isTemplatePreview = pathname.startsWith("/templates/");
+  if (isPublicBio || isPublicPortfolio || isTemplatePreview) {
     return <>{children}</>;
   }
   return (

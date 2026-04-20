@@ -20,6 +20,10 @@ const DEMO_URLS: Record<string, string> = {
   "portfolio-builder": "/tools/portfolio-builder",
   "content-calendar-kit": "/tools/content-calendar",
   "ad-copy-swipe-file": "/tools/ad-copy-swipe-file",
+  "chatbot-ui-kit": "/tools/chatbot-ui",
+  "api-playground": "/tools/api-playground",
+  "campaign-dashboard": "/tools/campaign-dashboard",
+  "landing-page-templates": "/tools/landing-page-templates",
 };
 
 export async function generateMetadata({
