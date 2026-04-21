@@ -24,6 +24,9 @@ const DEMO_URLS: Record<string, string> = {
   "api-playground": "/tools/api-playground",
   "campaign-dashboard": "/tools/campaign-dashboard",
   "landing-page-templates": "/tools/landing-page-templates",
+  "nextjs-auth-starter": "/tools/auth-starter-demo",
+  "saas-dashboard-starter": "/tools/saas-dashboard-demo",
+  "newsletter-starter": "/tools/newsletter-demo",
 };
 
 export async function generateMetadata({
