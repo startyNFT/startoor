@@ -3,6 +3,7 @@ import Image from "next/image";
 import { formatPrice } from "@/lib/formatters";
 import { cn } from "@/lib/cn";
 import { hasLiveDemo } from "@/lib/demo-urls";
+import { getDelivery, type DeliveryType } from "@/lib/delivery";
 import type { ProductListItem } from "@/lib/queries";
 
 function DemoBadge({ compact = false }: { compact?: boolean }) {
@@ -15,6 +16,30 @@ function DemoBadge({ compact = false }: { compact?: boolean }) {
     >
       <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-forest" />
       Live demo
+    </span>
+  );
+}
+
+function deliveryChipLabel(type: DeliveryType): string {
+  switch (type) {
+    case "repo":
+      return "GitHub repo";
+    case "hosted":
+      return "Hosted";
+    case "download":
+      return "Download";
+  }
+}
+
+function DeliveryChip({ type, compact = false }: { type: DeliveryType; compact?: boolean }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full border border-hairline bg-paper px-2 py-0.5 font-mono uppercase tracking-[0.2em] text-ink-soft",
+        compact ? "text-[9px]" : "text-[10px]",
+      )}
+    >
+      {deliveryChipLabel(type)}
     </span>
   );
 }
@@ -40,6 +65,7 @@ export function ProductCard({
 }
 
 function DefaultCard({ product, priority }: { product: ProductListItem; priority?: boolean }) {
+  const delivery = getDelivery(product.slug);
   return (
     <Link
       href={`/products/${product.slug}`}
@@ -62,11 +88,10 @@ function DefaultCard({ product, priority }: { product: ProductListItem; priority
               </span>
             </div>
           )}
-          {hasLiveDemo(product.slug) && (
-            <div className="absolute right-3 top-3">
-              <DemoBadge />
-            </div>
-          )}
+          <div className="absolute right-3 top-3 flex flex-col items-end gap-1.5">
+            {hasLiveDemo(product.slug) && <DemoBadge />}
+            {delivery && <DeliveryChip type={delivery.type} />}
+          </div>
         </div>
 
         <div className="mt-5 flex flex-1 flex-col">
@@ -101,6 +126,7 @@ function DefaultCard({ product, priority }: { product: ProductListItem; priority
 }
 
 function LargeCard({ product, priority }: { product: ProductListItem; priority?: boolean }) {
+  const delivery = getDelivery(product.slug);
   return (
     <Link
       href={`/products/${product.slug}`}
@@ -123,11 +149,10 @@ function LargeCard({ product, priority }: { product: ProductListItem; priority?:
               </span>
             </div>
           )}
-          {hasLiveDemo(product.slug) && (
-            <div className="absolute right-5 top-5">
-              <DemoBadge />
-            </div>
-          )}
+          <div className="absolute right-5 top-5 flex flex-col items-end gap-2">
+            {hasLiveDemo(product.slug) && <DemoBadge />}
+            {delivery && <DeliveryChip type={delivery.type} />}
+          </div>
         </div>
 
         <div className="mt-7 flex flex-1 flex-col">
@@ -162,6 +187,7 @@ function LargeCard({ product, priority }: { product: ProductListItem; priority?:
 }
 
 function CompactCard({ product, priority }: { product: ProductListItem; priority?: boolean }) {
+  const delivery = getDelivery(product.slug);
   return (
     <Link
       href={`/products/${product.slug}`}
@@ -186,10 +212,11 @@ function CompactCard({ product, priority }: { product: ProductListItem; priority
         <h4 className="mt-1 font-display text-lg leading-tight tracking-tight text-ink transition-colors group-hover:text-forest">
           {product.title}
         </h4>
-        <div className="mt-2 flex flex-wrap items-center gap-3">
+        <div className="mt-2 flex flex-wrap items-center gap-2">
           <span className="font-mono text-sm tabular-nums text-ink">
             {formatPrice(product.priceCents)}
           </span>
+          {delivery && <DeliveryChip type={delivery.type} compact />}
           {hasLiveDemo(product.slug) && <DemoBadge compact />}
           {product.maker && (
             <span className="font-sans text-xs text-stone">

@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { orders, products, makers, categories } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import { formatPrice, formatDate } from "@/lib/formatters";
+import { getDelivery } from "@/lib/delivery";
 
 export const metadata: Metadata = {
   title: "Order confirmed",
@@ -46,6 +47,7 @@ export default async function ConfirmationPage({
   const data = await getOrder(orderId);
   if (!data || !data.product) notFound();
   const { order, product, maker, category } = data;
+  const delivery = getDelivery(product.slug);
 
   return (
     <div className="relative border-t border-hairline">
@@ -127,6 +129,39 @@ export default async function ConfirmationPage({
           </div>
         </div>
 
+        {/* What you're receiving */}
+        {delivery && (
+          <section className="mt-16 border border-hairline bg-bone p-7 md:p-9">
+            <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-clay">
+              What you&apos;re receiving
+            </span>
+            <p className="mt-4 font-display text-3xl leading-tight tracking-tight text-ink md:text-4xl">
+              {delivery.label}
+            </p>
+            <p className="mt-3 max-w-2xl font-sans text-base leading-relaxed text-ink-soft">
+              {delivery.summary}
+            </p>
+            <ul className="mt-7 grid gap-4 md:grid-cols-2">
+              {delivery.items.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="flex gap-3 border-t border-hairline-soft pt-4"
+                >
+                  <span className="font-mono text-xs tabular-nums text-stone">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-sans text-sm leading-relaxed text-ink">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-7 border-t border-hairline pt-5 font-sans text-sm leading-relaxed text-ink-soft">
+              {delivery.afterPurchase}
+            </p>
+          </section>
+        )}
+
         {/* What's next */}
         <section className="mt-16">
           <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-clay">
@@ -141,12 +176,26 @@ export default async function ConfirmationPage({
             <Step
               n="02"
               title="We open live checkout"
-              body="When payments go live, you get first access and the preview price — even if we&#39;ve raised rates."
+              body="When payments go live, you get first access and the preview price — even if we've raised rates."
             />
             <Step
               n="03"
-              title="Download + support"
-              body="Once live, download is instant. You&#39;ll have direct line to the maker for questions."
+              title={
+                delivery?.type === "repo"
+                  ? "Repo invite + ZIP"
+                  : delivery?.type === "hosted"
+                    ? "Start using it"
+                    : "Instant download"
+              }
+              body={
+                delivery?.type === "repo"
+                  ? "Once live, you get a GitHub invite and ZIP link in the order email. MIT licensed."
+                  : delivery?.type === "hosted"
+                    ? "Once live, you'll use it right here on Startoor with your email. Data is yours to export."
+                    : delivery?.type === "download"
+                      ? "Once live, download link lands in your email. CSV, Notion, and PDF where applicable."
+                      : "Once live, download is instant and you'll have a direct line to the maker."
+              }
             />
           </div>
         </section>

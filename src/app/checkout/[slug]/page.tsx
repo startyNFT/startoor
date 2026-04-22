@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/queries";
 import { formatPrice } from "@/lib/formatters";
+import { getDelivery } from "@/lib/delivery";
 import { CheckoutForm } from "./checkout-form";
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default async function CheckoutPage({
   const isFree = product.priceCents === 0;
   const fees = isFree ? 0 : Math.round(product.priceCents * 0.029 + 30);
   const total = product.priceCents + fees;
+  const delivery = getDelivery(product.slug);
 
   return (
     <div className="border-t border-hairline">
@@ -97,6 +99,20 @@ export default async function CheckoutPage({
                   className="border-t border-hairline pt-4"
                 />
               </div>
+
+              {delivery && (
+                <div className="mt-6 border-t border-hairline pt-5">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-clay">
+                    You&apos;re buying
+                  </span>
+                  <p className="mt-2 font-display text-lg leading-tight tracking-tight text-ink">
+                    {delivery.label}
+                  </p>
+                  <p className="mt-2 font-sans text-xs leading-relaxed text-ink-soft">
+                    {delivery.summary}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 

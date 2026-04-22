@@ -11,6 +11,7 @@ import { formatPrice, formatDate } from "@/lib/formatters";
 import { StarRating } from "@/components/star-rating";
 import { ProductCard } from "@/components/product-card";
 import { DEMO_URLS } from "@/lib/demo-urls";
+import { getDelivery, deliveryBadgeLabel, type DeliveryType } from "@/lib/delivery";
 
 export async function generateMetadata({
   params,
@@ -51,6 +52,8 @@ export default async function ProductPage({
     reviews.length > 0
       ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
       : null;
+
+  const delivery = getDelivery(product.slug);
 
   return (
     <article>
@@ -185,9 +188,37 @@ export default async function ProductPage({
               </Link>
             )}
 
+            {delivery && (
+              <div className="mt-6 border border-hairline bg-bone p-5">
+                <div className="flex items-center gap-3">
+                  <DeliveryIcon type={delivery.type} />
+                  <div>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-clay">
+                      What you&apos;re buying
+                    </span>
+                    <p className="mt-1 font-display text-lg leading-tight tracking-tight text-ink">
+                      {delivery.label}
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 font-sans text-sm leading-relaxed text-ink-soft">
+                  {delivery.summary}
+                </p>
+                <p className="mt-3 font-sans text-xs leading-relaxed text-stone">
+                  {delivery.afterPurchase}
+                </p>
+              </div>
+            )}
+
             <p className="mt-4 font-sans text-xs leading-relaxed text-stone">
-              Instant download · Year of updates · Support from the maker ·{" "}
-              <span className="text-ink-soft">14-day refund if it&apos;s not a fit</span>
+              {delivery?.type === "repo" &&
+                "Instant repo access · Year of updates · 14-day refund"}
+              {delivery?.type === "hosted" &&
+                "Instant access · Your data exports any time · 14-day refund"}
+              {delivery?.type === "download" &&
+                "Instant download · Yours forever · 14-day refund"}
+              {!delivery &&
+                "Instant access · Year of updates · 14-day refund if it's not a fit"}
             </p>
 
             {/* Maker */}
@@ -267,8 +298,15 @@ export default async function ProductPage({
             <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-clay">
               What you get
             </span>
+            {delivery && (
+              <p className="mt-4 font-display text-lg leading-snug tracking-tight text-ink">
+                {delivery.label}
+                <span className="text-stone"> —</span>{" "}
+                <span className="text-ink-soft">{delivery.summary}</span>
+              </p>
+            )}
             <ul className="mt-6 space-y-5">
-              {product.features.map((feature, idx) => (
+              {(delivery?.items ?? product.features).map((feature, idx) => (
                 <li key={idx} className="flex gap-4 border-t border-hairline-soft pt-5 first:border-t-0 first:pt-0">
                   <span className="font-mono text-xs tabular-nums text-stone">
                     {String(idx + 1).padStart(2, "0")}
@@ -279,6 +317,15 @@ export default async function ProductPage({
                 </li>
               ))}
             </ul>
+            {delivery && (
+              <p className="mt-8 border-t border-hairline-soft pt-5 font-sans text-xs leading-relaxed text-stone">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-clay">
+                  After checkout
+                </span>
+                <br />
+                <span className="mt-2 block text-ink-soft">{delivery.afterPurchase}</span>
+              </p>
+            )}
           </aside>
         </div>
       </section>
@@ -401,5 +448,53 @@ export default async function ProductPage({
         </section>
       )}
     </article>
+  );
+}
+
+function DeliveryIcon({ type }: { type: DeliveryType }) {
+  const common = "h-10 w-10 flex-shrink-0 border border-hairline bg-paper";
+  if (type === "repo") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden
+        className={common}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.2}
+      >
+        <title>{deliveryBadgeLabel(type)}</title>
+        <path d="M8 4.5v15m8-15v15M5 7h14M5 12h14M5 17h14" />
+      </svg>
+    );
+  }
+  if (type === "hosted") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden
+        className={common}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.2}
+      >
+        <title>{deliveryBadgeLabel(type)}</title>
+        <circle cx="12" cy="12" r="7.5" />
+        <path d="M4.5 12h15M12 4.5c2.5 2.5 2.5 12.5 0 15M12 4.5c-2.5 2.5-2.5 12.5 0 15" />
+      </svg>
+    );
+  }
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden
+      className={common}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.2}
+    >
+      <title>{deliveryBadgeLabel(type)}</title>
+      <path d="M12 4.5v11m0 0l-4-4m4 4l4-4M5 19.5h14" />
+    </svg>
   );
 }
